@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<ContosoUniversity.Models.Enrollment>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Academic History";
+    Layout = "~/Views/Enrollment/_EnrollmentLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            Number
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Grade
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Period
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Period)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+<!--Academic History Pager-->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("AcademicHistory", new { page }))
+<!--Academic History Pager-->
